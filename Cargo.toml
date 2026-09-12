@@ -1,0 +1,38 @@
+[package]
+name = "datafusion-functions-jmespath"
+version = "0.1.0"
+edition = "2021"
+description = "JMESPath functions for DataFusion"
+license = "Apache-2.0"
+keywords = ["datafusion", "jmespath", "JSON", "SQL"]
+categories = ["database-implementations", "parsing"]
+rust-version = "1.88.0"
+readme = "README.md"
+repository = "https://github.com/cetra3/datafusion-functions-jmespath/"
+
+[dependencies]
+datafusion = { version = "55", default-features = false, features = ["sql"] }
+jiter = { version = "0.17.0", features = ["num-bigint"] }
+jmespath = { version = "0.5", features = ["sync"] }
+serde_json = "1"
+
+[dev-dependencies]
+codspeed-criterion-compat = "2.6"
+# also direct dependencies, but integration tests only link dev-dependencies
+jmespath = { version = "0.5", features = ["sync"] }
+serde_json = "1"
+datafusion = { version = "55", default-features = false, features = [
+    "nested_expressions",
+    "parquet",
+    "sql",
+] }
+tokio = { version = "1.43", features = ["full"] }
+
+[lints.clippy]
+dbg_macro = "deny"
+print_stdout = "deny"
+pedantic = { level = "deny", priority = -1 }
+
+[[bench]]
+name = "main"
+harness = false
